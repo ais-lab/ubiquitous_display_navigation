@@ -1,0 +1,12 @@
+<launch>
+  <arg name="bag_filename" default="$(find ubiquitous_display_navigation)/bag/mapping_corridor.bag"/>
+
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
+    <remap from="scan" to="/scan"/>
+  </node>
+
+  <node name="playbag" pkg="rosbag" type="play"
+		args="--clock $(arg bag_filename)" />
+  
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find ubiquitous_display_navigation)/rviz/gmapping.rviz" />
+</launch>
